@@ -20,3 +20,5 @@ Google fonts
 boto3
 
 ipython
+
+awscli
