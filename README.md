@@ -1,4 +1,4 @@
-# portfolio for study aclaud guru 
+# portfolio for study  
 Acloud guru class work
 
 Technologies used Github and ssh
