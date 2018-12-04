@@ -22,3 +22,5 @@ boto3
 ipython
 
 awscli
+
+Code Build
