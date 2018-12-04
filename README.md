@@ -23,4 +23,3 @@ ipython
 
 awscli
 
-Code Build
