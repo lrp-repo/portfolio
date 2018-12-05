@@ -1,19 +1,29 @@
+import json
 import boto3
-import StringIO
+import io
 import zipfile
+import mimetypes
 
-s3 = boto3.resource('s3')
-portfolio_bucket = s3.Bucket('portfolio.lpasf.org')
-build_bucket = s3.Bucket('portfoliobuild.lpasf.org')
-build_bucket.download_file('portfoliobuild.zip', '/tmp/portfoliobuild.zip')
+def lambda_handler(event, context):
+    
+    s3 = boto3.resource('s3')
+    
+    portfolio_bucket = s3.Bucket('portfolio.lpasf.org')
+    build_bucket = s3.Bucket('portfoliobuild.lpasf.org')
+    
+    portfolio_zip = io.BytesIO()
+    
+    build_bucket.download_fileobj('portfoliobuild.zip', portfolio_zip)
+    
+    with zipfile.ZipFile(portfolio_zip) as myzip:
+        for nm in myzip.namelist():
+            obj = myzip.open(nm)
+            content_type = mimetypes.guess_type(nm)[0]
+            print(content_type)
+            portfolio_bucket.upload_fileobj(obj, nm ,ExtraArgs={'ACL': 'public-read', 'ContentType': content_type })
+     
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Portfolio Lambda Job Completed Sucessfully')
+    }
 
-portfolio_zip = StringIO.StringIO()
-build_bucket.download_fileobj('portfoliobuild.zip', portfolio_zip)
-
-for obj in portfolio_bucket.objects.all():
-      print obj.key
-
-with zipfile.ZipFile(portfolio_zip) as myzip:
-    for nm in myzip.namelist():
-        obj = myzip.open(nm)
-        portfolio_bucket.upload_fileobj(obj,nm)

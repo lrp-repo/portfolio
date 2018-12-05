@@ -23,3 +23,4 @@ ipython
 
 awscli
 
+codeBuild
