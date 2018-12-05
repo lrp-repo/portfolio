@@ -9,5 +9,6 @@ artifacts:
     - favicon.ico
     - images/*
     - styles/main.css
+    - upload-portfolio-lambda.py
 
 
