@@ -24,3 +24,8 @@ ipython
 awscli
 
 codeBuild
+
+Lambda
+
+Codepipeline
+
