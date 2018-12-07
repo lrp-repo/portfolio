@@ -31,3 +31,6 @@ Codepipeline
 
 Visual Code
 
+added full pipleline role to determine if issue of Lambda non-complete is fixed
+
+
