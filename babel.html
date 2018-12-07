@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <meta carset="utf-8">
+    <title>Babel Demo</title>
+    <style media="screen">
+        .errorBox {
+            border: 1px solid red;
+            background-color: #eebbbb;
+            margin: 1em;
+            padding: 2em;
+        }
+ 
+        .errorBox--hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <label>Enter Name: <input id="name" type="text" /></label>
+        <button id="submit_info">Click me!</button>
+        <div id="content"> </div>
+        <div id="error" class="errorBox--hidden">
+            Error message goes here.
+        </div>
+    </main>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+
+    const getMessage = (name) => `Welcome to Javascript, ${name}`;
+    const button = document.getElementById('submit_info');
+    const messageArea = document.getElementById("error")
+
+    button.addEventListener('click', (evt) => {
+      messageArea.className = "errorBox--hidden"; 
+      messageArea.textContent = "";
+     let name = document.getElementById("name").value;
+
+     if (name.length < 2) {
+       messageArea.textContent = "Please enter name!";
+       messageArea.className = "errorBox";
+     } else {
+    document.getElementById('content').textContent = getMessage(name);
+    
+    }
+    });
+
+</script>
+
+    </script>
+</body>
+
+</html>
